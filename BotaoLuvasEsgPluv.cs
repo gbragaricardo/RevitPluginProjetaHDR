@@ -35,7 +35,7 @@ namespace ProjetaHDR
 
                 transacao.Start();
 
-                instanciasAlteradas = InserirSistemaFamiliaAninhada(SelecionarConexoes(), "Abreviatura do sistema", "PRJ HDR SISTEMA");
+                instanciasAlteradas = InserirSistemaFamiliaAninhada(SelecionarConexoes(), "Abreviatura do sistema", "PRJ HDR: Sistema");
 
                 transacao.Commit();
             }
@@ -80,12 +80,16 @@ namespace ProjetaHDR
                         {
                             string valorParametroHospedeiro = parametroHospedeiro.AsString();
 
-                            Parameter parametroAninhado = conexaoInstancia.LookupParameter(nomeParametroAninhado);
-                            if (parametroAninhado != null)
+                            if (valorParametroHospedeiro != "")
                             {
-                                parametroAninhado.Set(valorParametroHospedeiro);
-                                contador++;
-                            }
+                                Parameter parametroAninhado = conexaoInstancia.LookupParameter(nomeParametroAninhado);
+
+                                if (parametroAninhado != null)
+                                {
+                                    parametroAninhado.Set(valorParametroHospedeiro);
+                                    contador++;
+                                }
+                            }                                
                         }
                         
                     }
