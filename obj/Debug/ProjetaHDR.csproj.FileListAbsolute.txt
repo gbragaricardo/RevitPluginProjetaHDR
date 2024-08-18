@@ -1,0 +1,7 @@
+C:\Users\ricar\source\repos\ProjetaHDR\bin\Debug\BragaBIM.dll
+C:\Users\ricar\source\repos\ProjetaHDR\bin\Debug\BragaBIM.pdb
+C:\Users\ricar\source\repos\ProjetaHDR\obj\Debug\ProjetaHDR.csproj.AssemblyReference.cache
+C:\Users\ricar\source\repos\ProjetaHDR\obj\Debug\BragaBIM.g.resources
+C:\Users\ricar\source\repos\ProjetaHDR\obj\Debug\ProjetaHDR.csproj.CoreCompileInputs.cache
+C:\Users\ricar\source\repos\ProjetaHDR\obj\Debug\BragaBIM.dll
+C:\Users\ricar\source\repos\ProjetaHDR\obj\Debug\BragaBIM.pdb

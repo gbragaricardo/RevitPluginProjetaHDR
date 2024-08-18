@@ -1,0 +1,7 @@
+C:\Users\ricar\source\repos\BragaBIM\obj\Debug\BragaBIM.csproj.AssemblyReference.cache
+C:\Users\ricar\source\repos\BragaBIM\obj\Debug\BragaBIM.g.resources
+C:\Users\ricar\source\repos\BragaBIM\obj\Debug\BragaBIM.csproj.CoreCompileInputs.cache
+C:\Users\ricar\source\repos\BragaBIM\bin\Debug\BragaBIM.dll
+C:\Users\ricar\source\repos\BragaBIM\bin\Debug\BragaBIM.pdb
+C:\Users\ricar\source\repos\BragaBIM\obj\Debug\BragaBIM.dll
+C:\Users\ricar\source\repos\BragaBIM\obj\Debug\BragaBIM.pdb

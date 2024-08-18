@@ -1,0 +1,7 @@
+C:\Users\ricar\source\repos\ProjetaHDR\obj\Release\ProjetaHDR.csproj.AssemblyReference.cache
+C:\Users\ricar\source\repos\ProjetaHDR\obj\Release\ProjetaHDR.csproj.CoreCompileInputs.cache
+C:\Users\ricar\source\repos\ProjetaHDR\bin\Release\ProjetaHDR.dll
+C:\Users\ricar\source\repos\ProjetaHDR\bin\Release\ProjetaHDR.pdb
+C:\Users\ricar\source\repos\ProjetaHDR\obj\Release\ProjetaHDR.g.resources
+C:\Users\ricar\source\repos\ProjetaHDR\obj\Release\ProjetaHDR.dll
+C:\Users\ricar\source\repos\ProjetaHDR\obj\Release\ProjetaHDR.pdb

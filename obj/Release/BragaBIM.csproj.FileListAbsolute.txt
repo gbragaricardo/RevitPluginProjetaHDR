@@ -1,0 +1,14 @@
+C:\Users\ricar\source\repos\BragaBIM\bin\Release\BragaBIM.dll
+C:\Users\ricar\source\repos\BragaBIM\bin\Release\BragaBIM.pdb
+C:\Users\ricar\source\repos\BragaBIM\obj\Release\BragaBIM.csproj.AssemblyReference.cache
+C:\Users\ricar\source\repos\BragaBIM\obj\Release\BragaBIM.g.resources
+C:\Users\ricar\source\repos\BragaBIM\obj\Release\BragaBIM.csproj.CoreCompileInputs.cache
+C:\Users\ricar\source\repos\BragaBIM\obj\Release\BragaBIM.dll
+C:\Users\ricar\source\repos\BragaBIM\obj\Release\BragaBIM.pdb
+C:\Users\ricar\source\repos\ProjetaHDR\bin\Release\BragaBIM.dll
+C:\Users\ricar\source\repos\ProjetaHDR\bin\Release\BragaBIM.pdb
+C:\Users\ricar\source\repos\ProjetaHDR\obj\Release\BragaBIM.csproj.AssemblyReference.cache
+C:\Users\ricar\source\repos\ProjetaHDR\obj\Release\BragaBIM.g.resources
+C:\Users\ricar\source\repos\ProjetaHDR\obj\Release\BragaBIM.csproj.CoreCompileInputs.cache
+C:\Users\ricar\source\repos\ProjetaHDR\obj\Release\BragaBIM.dll
+C:\Users\ricar\source\repos\ProjetaHDR\obj\Release\BragaBIM.pdb
