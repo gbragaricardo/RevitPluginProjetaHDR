@@ -1,10 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\ricar\\source\\repos\\BragaBIM\\Utilities\\",
+  "WorkspaceRootPath": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\Utilities\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ricar\\source\\repos\\BragaBIM\\Utilities\\BragaBIM - Connector.addin||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BragaBIM - Connector.addin||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\Utilities\\ProjetaHDR - Connector.addin||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ProjetaHDR - Connector.addin||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "BragaBIM - Connector.addin",
-              "DocumentMoniker": "C:\\Users\\ricar\\source\\repos\\BragaBIM\\Utilities\\BragaBIM - Connector.addin",
-              "RelativeDocumentMoniker": "BragaBIM - Connector.addin",
-              "ToolTip": "C:\\Users\\ricar\\source\\repos\\BragaBIM\\Utilities\\BragaBIM - Connector.addin",
-              "RelativeToolTip": "BragaBIM - Connector.addin",
+              "Title": "ProjetaHDR - Connector.addin",
+              "DocumentMoniker": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\Utilities\\ProjetaHDR - Connector.addin",
+              "RelativeDocumentMoniker": "ProjetaHDR - Connector.addin",
+              "ToolTip": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\Utilities\\ProjetaHDR - Connector.addin",
+              "RelativeToolTip": "ProjetaHDR - Connector.addin",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000072|",
-              "WhenOpened": "2024-08-18T18:28:00.788Z",
+              "WhenOpened": "2024-08-19T04:43:29.076Z",
               "EditorCaption": ""
             }
           ]
