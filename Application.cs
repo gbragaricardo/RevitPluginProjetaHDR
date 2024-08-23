@@ -70,6 +70,37 @@ namespace ProjetaHDR
             #endregion
 
 
+            #region BotaoDebug
+            // Cria os dados do botão
+            PushButtonData debugData = new PushButtonData(
+                "BotaoDebug",            // Nome interno do botão
+                "BotaoDebug",            // Texto exibido no botão
+                thisAssemblyPath,          // Caminho do assembly onde o comando está localizado
+                "ProjetaHDR.BotaoDebug"    // Nome completo da classe de comando
+            );
+
+            // Adiciona o botão ao painel e verifica se a adição foi bem-sucedida
+            PushButton debugButton = panelTabelas.AddItem(debugData) as PushButton;
+
+            // Se o botão foi criado com sucesso
+            if (debugButton != null)
+            {
+                // Define uma dica (tooltip) que aparecerá quando o usuário passar o mouse sobre o botão
+                debugButton.ToolTip = "Auxilio a testar metodos";
+
+                // Define o caminho para o ícone do botão
+                string iconPath = Path.Combine(Path.GetDirectoryName(thisAssemblyPath), "Resources", "debug.ico");
+
+                // Cria a imagem do ícone
+                Uri uri = new Uri(iconPath);
+                BitmapImage bitmap = new BitmapImage(uri);
+
+                // Define a imagem como o ícone do botão
+                debugButton.LargeImage = bitmap;
+            }
+            #endregion
+
+
             #region BotaoTagTubos
             // Cria os dados do botão
             PushButtonData tagTubosData = new PushButtonData(

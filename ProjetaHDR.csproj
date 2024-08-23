@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Application.cs" />
     <Compile Include="TagTubos.cs" />
+    <Compile Include="BotaoDebug.cs" />
     <Compile Include="TemplateClass.cs" />
     <Compile Include="BotaoLuvasEsgPluv.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
