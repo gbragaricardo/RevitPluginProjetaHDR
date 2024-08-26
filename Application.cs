@@ -37,6 +37,7 @@ namespace ProjetaHDR
         {
             RibbonPanel panelTabelas = CreateRibbonPanelTabelas(application);
             RibbonPanel panelDetalhamento = CreateRibbonPanelDetalhamento(application);
+            RibbonPanel panelDev = CreateRibbonPanelDev(application);
             string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
 
             #region BotaoLuvasEsgPluv
@@ -80,7 +81,7 @@ namespace ProjetaHDR
             );
 
             // Adiciona o botão ao painel e verifica se a adição foi bem-sucedida
-            PushButton debugButton = panelTabelas.AddItem(debugData) as PushButton;
+            PushButton debugButton = panelDev.AddItem(debugData) as PushButton;
 
             // Se o botão foi criado com sucesso
             if (debugButton != null)
@@ -183,6 +184,31 @@ namespace ProjetaHDR
             try
             {
                 ribbonPanel = aplicativo.CreateRibbonPanel(tab, "Detalhamento");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+
+            return ribbonPanel;
+        }
+        public RibbonPanel CreateRibbonPanelDev(UIControlledApplication aplicativo)
+        {
+            string tab = "Projeta HDR";
+            RibbonPanel ribbonPanel = null;
+
+            try
+            {
+                aplicativo.CreateRibbonTab(tab);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+
+            try
+            {
+                ribbonPanel = aplicativo.CreateRibbonPanel(tab, "Dev");
             }
             catch (Exception ex)
             {
