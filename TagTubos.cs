@@ -11,6 +11,7 @@ using System.Windows;
 using Autodesk.Revit.DB.Plumbing;
 using System.Windows.Documents;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 
 
 namespace ProjetaHDR
@@ -24,7 +25,6 @@ namespace ProjetaHDR
         UIDocument _uidoc;
         Document _doc;
         View _vistaAtiva;
-        ElementId idTipoTag = new ElementId(12292844);
 
         #region MAIN
 
@@ -41,43 +41,132 @@ namespace ProjetaHDR
             using (Transaction transacao = new Transaction(_doc, "Detalhar tubos"))
             {
 
-                ElementId IdTipoTag = new ElementId(12292844); // Variavel declarada com o ID do tipo da tag que será utilizada em todo o método
-
                 bool linhaDeChamada = false; // Variavel booleana declarada com false para negar a opção de linha de chamada
 
                 TagOrientation tagOrientacao = TagOrientation.Horizontal; // Variavel declarada com a orientação trabalhada pelo revit como Horizontal para todas as tags
 
 
-                // Instanciação da lista de tubos (Element) da vista ativa
-                IList<Element> tubosNaVista = new List<Element>(SelecionarTubosNaVista()); 
 
-                // Instanciação da lista de tubos (Element) acima de 20cm de comprimento
-                IList<Element> filtradosPorComprimento = FiltrarPorComprimento(tubosNaVista);
+                string detalheEscolhido = InputEscolhaDetalhe();
 
-                // Instanciação da lista de tubos (Element) com remoção dos tubos verticais
-                IList<Element> filtradorPorComprimentoEVerticaisRemovidos = RemoverVerticais(filtradosPorComprimento);
+                if (detalheEscolhido != null)
+                {
 
-                // Instanciação da lista de orientações (string) dos tubos em planta baixa (Horizontal, Vertical, Ou Diagonais)
-                IList<string> orientacoesEmPlanta = VerificarOrientacaoEmPlanta(filtradorPorComprimentoEVerticaisRemovidos);
+                    ElementId IdTipoTag = ObterIdTags(detalheEscolhido);
 
-                // Instanciação da lista XYZ dos pontos de inserção das Tags
-                IList<XYZ> pontosDeInsercaoTags = PontoInsercaoTag(filtradorPorComprimentoEVerticaisRemovidos, orientacoesEmPlanta);
+                    // Instanciação da lista de tubos (Element) da vista ativa
+                    IList<Element> tubosNaVista = new List<Element>(SelecionarTubosNaVista());
+
+                    // Instanciação da lista de tubos (Element) acima de 20cm de comprimento
+                    IList<Element> filtradosPorComprimento = FiltrarPorComprimento(tubosNaVista);
+
+                    // Instanciação da lista de tubos (Element) com remoção dos tubos verticais
+                    IList<Element> filtradorPorComprimentoEVerticaisRemovidos = RemoverVerticais(filtradosPorComprimento);
+
+                    // Instanciação da lista de orientações (string) dos tubos em planta baixa (Horizontal, Vertical, Ou Diagonais)
+                    IList<string> orientacoesEmPlanta = VerificarOrientacaoEmPlanta(filtradorPorComprimentoEVerticaisRemovidos);
+
+                    // Instanciação da lista XYZ dos pontos de inserção das Tags
+                    IList<XYZ> pontosDeInsercaoTags = PontoInsercaoTag(filtradorPorComprimentoEVerticaisRemovidos, orientacoesEmPlanta, detalheEscolhido);
 
 
-                transacao.Start(); // Inicio da transação que faz modificações do Projeto/Arquivo
 
-                // Uso da variavel estatica que remove as tags do mesmo ID da que será utilizada que estão nos mesmos tubos que serão utilizados
-                RemoverTagsExistentes(_doc, _vistaAtiva, filtradorPorComprimentoEVerticaisRemovidos, idTipoTag);
+                    transacao.Start(); // Inicio da transação que faz modificações do Projeto/Arquivo
 
-                // Criação das Tags
-                CriarTags(filtradorPorComprimentoEVerticaisRemovidos, IdTipoTag, _vistaAtiva.Id, linhaDeChamada, tagOrientacao, pontosDeInsercaoTags);
+                    // Uso da variavel estatica que remove as tags do mesmo ID da que será utilizada que estão nos mesmos tubos que serão utilizados
+                    RemoverTagsExistentes(_doc, _vistaAtiva, filtradorPorComprimentoEVerticaisRemovidos, IdTipoTag);
 
-                transacao.Commit(); // Fim da transação que faz modificações do Projeto/Arquivo
+                    // Criação das Tags
+                    CriarTags(filtradorPorComprimentoEVerticaisRemovidos, IdTipoTag, _vistaAtiva.Id, linhaDeChamada, tagOrientacao, pontosDeInsercaoTags);
+
+                    SetarValorAoParametroInclinacao(filtradorPorComprimentoEVerticaisRemovidos);
+
+                    transacao.Commit(); // Fim da transação que faz modificações do Projeto/Arquivo
+                }
             }
 
             return Result.Succeeded; //Retorno padrao do metodo execute
         }
         #endregion
+
+
+        #region InputUsuario
+        public string InputEscolhaDetalhe()
+        {
+            string tipoEscolhido = "";
+
+            // Cria uma nova TaskDialog
+            TaskDialog entradaTipoTag = new TaskDialog("Escolha a TAG");
+
+            // Define a instrução principal do diálogo
+            entradaTipoTag.MainInstruction = "Selecione uma opção";
+
+            // Define os botões comuns (OK e Cancel)
+            TaskDialogCommonButtons buttons = TaskDialogCommonButtons.Cancel;
+            entradaTipoTag.CommonButtons = buttons;
+
+            // Adiciona os comandos de links (opções) que o usuário pode escolher
+            entradaTipoTag.AddCommandLink(TaskDialogCommandLinkId.CommandLink1, "Diâmetro");
+            entradaTipoTag.AddCommandLink(TaskDialogCommandLinkId.CommandLink3, "Inclinação ");
+
+            // Exibe o diálogo e captura a resposta do usuário
+            TaskDialogResult result = entradaTipoTag.Show();
+            
+            if (result == TaskDialogResult.Cancel || result == TaskDialogResult.Close)
+            {
+                // Se o usuário clicar em Cancel, encerra o script retornando null ou lançando uma exceção
+                return null;
+            }
+
+            switch (result)
+            {
+                case TaskDialogResult.CommandLink1:
+                    tipoEscolhido = "Diametro";
+                    break;
+                case TaskDialogResult.CommandLink3:
+                    tipoEscolhido = "Inclinacao";
+                    break;
+                case TaskDialogResult.Cancel:
+                    tipoEscolhido = "Cancelado";
+                    break;
+
+            }
+
+            return tipoEscolhido;
+        }
+        #endregion
+
+
+        #region ObterIdTags
+
+        public ElementId ObterIdTags(string detalheEscolhido)
+        {
+
+            ElementId idTag = null;
+            IList<Element> tiposDeTag = new FilteredElementCollector(_doc).OfCategory(BuiltInCategory.OST_PipeTags).WhereElementIsElementType().ToElements();
+
+            foreach (Element tipoDeTag in tiposDeTag)
+            {
+                if (tipoDeTag.Name == detalheEscolhido)
+                {
+                    idTag = tipoDeTag.Id;
+                }
+            }
+
+            if (idTag == null)
+            {
+                TaskDialog.Show("Erro", $"Tag com nome {detalheEscolhido} não encontrada");
+                return null;
+            }
+            else
+            {
+                return idTag;
+            }
+
+        }
+
+        #endregion
+
 
         #region SelecionarTubosNaVista
 
@@ -254,7 +343,7 @@ namespace ProjetaHDR
         /// <param name="orientacoes"></param> Orientação definida na função VerificaOrientacaoEmPlanta
         /// <returns> Lista XYZ </returns>
 
-        public IList<XYZ> PontoInsercaoTag( IList<Element> tubosNaVistaFiltrados, IList<string> orientacoes)
+        public IList<XYZ> PontoInsercaoTag( IList<Element> tubosNaVistaFiltrados, IList<string> orientacoes, string detalheEscolhido)
         {
 
             IList<XYZ> pontoMedio = new List<XYZ>();        // Instancia uma lista vazia de XYZ que receberá o ponto médio de cada tubo
@@ -283,25 +372,61 @@ namespace ProjetaHDR
             {
                 if (orientacoes[i] == "Horizontal") // Condiciona para apenas tubos Horizontais
                 {
-                    // Ponto de inserção da tag recebe o valor de deslocamento em Y e soma tudo ao ponto médio
-                    pontoDeInsercaoTag.Add(new XYZ(0, deslocamentos[i], 0) + pontoMedio[i]);  
+                    if (detalheEscolhido == "Diametro")
+                    {
+                        // Ponto de inserção da tag recebe o valor de deslocamento em Y e soma tudo ao ponto médio
+                        pontoDeInsercaoTag.Add(new XYZ(0, deslocamentos[i], 0) + pontoMedio[i]);
+                    }
+                    else if (detalheEscolhido == "Inclinacao")
+                    {
+                        // Ponto de inserção da tag recebe o valor de deslocamento em Y e soma tudo ao ponto médio
+                        pontoDeInsercaoTag.Add(new XYZ(0, -deslocamentos[i], 0) + pontoMedio[i]);
+                    }
+                      
                 }
 
                 else if (orientacoes[i] == "Vertical") // Condiciona para apenas tubos Verticais
                 {
-                    // Ponto de inserção da tag recebe o valor negativo do deslocamento em X, e soma tudo ao ponto médio
-                    pontoDeInsercaoTag.Add(new XYZ(-deslocamentos[i], 0, 0) + pontoMedio[i]);                 }
+                    if (detalheEscolhido == "Diametro")
+                    {
+                        // Ponto de inserção da tag recebe o valor negativo do deslocamento em X, e soma tudo ao ponto médio
+                        pontoDeInsercaoTag.Add(new XYZ(-deslocamentos[i], 0, 0) + pontoMedio[i]);
+                    }
+                    else if (detalheEscolhido == "Inclinacao")
+                    {
+                        // Ponto de inserção da tag recebe o valor negativo do deslocamento em X, e soma tudo ao ponto médio
+                        pontoDeInsercaoTag.Add(new XYZ(deslocamentos[i], 0, 0) + pontoMedio[i]);
+                    }
+                }
 
                 else if (orientacoes[i] == "Diagonal Positiva") // Condiciona para apenas tubos Diagonal Positiva
                 {
-                    // Ponto de inserção da tag recebe o valor negativo do deslocamento em X, Positivo em Y, e soma tudo ao ponto médio
-                    pontoDeInsercaoTag.Add(new XYZ(-deslocamentos[i], deslocamentos[i], 0) + pontoMedio[i]); 
+                    if (detalheEscolhido == "Diametro")
+                    {
+                        // Ponto de inserção da tag recebe o valor negativo do deslocamento em X, Positivo em Y, e soma tudo ao ponto médio
+                        pontoDeInsercaoTag.Add(new XYZ(-deslocamentos[i], deslocamentos[i], 0) + pontoMedio[i]);
+                    }
+                    else if (detalheEscolhido == "Inclinacao")
+                    {
+                        // Ponto de inserção da tag recebe o valor negativo do deslocamento em X, Positivo em Y, e soma tudo ao ponto médio
+                        pontoDeInsercaoTag.Add(new XYZ(deslocamentos[i], -deslocamentos[i], 0) + pontoMedio[i]);
+                    }
+                    
                 }
 
                 else if (orientacoes[i] == "Diagonal Negativa")
                 {
-                    // Ponto de inserção da tag recebe o valor do deslocamento em X e Y, e soma tudo ao ponto médio
-                    pontoDeInsercaoTag.Add(new XYZ(deslocamentos[i], deslocamentos[i], 0) + pontoMedio[i]); 
+                    if (detalheEscolhido == "Diametro")
+                    {
+                        // Ponto de inserção da tag recebe o valor do deslocamento em X e Y, e soma tudo ao ponto médio
+                        pontoDeInsercaoTag.Add(new XYZ(deslocamentos[i], deslocamentos[i], 0) + pontoMedio[i]);
+                    }
+                    else if (detalheEscolhido == "Inclinacao")
+                    {
+                        // Ponto de inserção da tag recebe o valor do deslocamento em X e Y, e soma tudo ao ponto médio
+                        pontoDeInsercaoTag.Add(new XYZ(-deslocamentos[i], -deslocamentos[i], 0) + pontoMedio[i]);
+                    }
+                     
                 }
 
                 else
@@ -365,6 +490,50 @@ namespace ProjetaHDR
         #endregion
 
 
+        #region SetarValorAoParametroInclinacao
+
+        public void SetarValorAoParametroInclinacao(IList<Element> tubosNaVista)
+        {
+
+
+            foreach (Element tubo in tubosNaVista)
+            {
+                Parameter parametroInclinacao = tubo.LookupParameter("PRJ HDR: Inclinacao Tag");
+                Parameter parametroAbreviaturaSistema = tubo.get_Parameter(BuiltInParameter.RBS_DUCT_PIPE_SYSTEM_ABBREVIATION_PARAM);
+                Parameter parametroClassificacaoSistema = tubo.get_Parameter(BuiltInParameter.RBS_SYSTEM_CLASSIFICATION_PARAM);
+                Parameter parametroDiametro = tubo.get_Parameter(BuiltInParameter.RBS_PIPE_DIAMETER_PARAM);
+                
+                string abreviaturaSistema = parametroAbreviaturaSistema.AsString();
+                string classificacaoSistema = parametroClassificacaoSistema.AsString();
+                double diametroEmMilimetros = parametroDiametro.AsDouble() * 304.8;
+
+                if (abreviaturaSistema == "ESG")
+                {
+                    if (classificacaoSistema == "Sanitário")
+                    {
+
+                        if (diametroEmMilimetros <= 75)
+                        {
+                            parametroInclinacao.Set("2%");
+
+                        }
+                        else
+                        {
+                            parametroInclinacao.Set("1%");
+                        }
+                    }
+
+                    else
+                    {
+                        parametroInclinacao.Set("1%");
+                    }
+                }
+            }
+
+        }
+        #endregion
+
+
         #region CriarTags
 
         /// <summary>
@@ -377,7 +546,7 @@ namespace ProjetaHDR
         /// <param name="Orientacao"></param> // Orientação da tag que o revit utiliza, vertical ou horizontal
         /// <param name="pontosInsercao"></param> // pontos de inserição XYZ que as tags serao colocadas
 
-            public void CriarTags(
+        public void CriarTags(
             IList<Element> tubosNaVistaFiltrados,
             ElementId IdTipoTag,
             ElementId IdVistaAtiva,
