@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\application.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|solutionrelative:application.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|c:\\users\\ricar\\source\\repos\\projetahdr\\tagtubos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|solutionrelative:tagtubos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -15,7 +11,11 @@
       "RelativeMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|solutionrelative:botaoluvasesgpluv.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|c:\\users\\ricar\\source\\repos\\projetahdr\\properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\application.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|solutionrelative:application.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|solutionrelative:properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -26,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 199,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
@@ -36,49 +36,46 @@
               "RelativeDocumentMoniker": "Properties\\AssemblyInfo.cs",
               "ToolTip": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\Properties\\AssemblyInfo.cs",
               "RelativeToolTip": "Properties\\AssemblyInfo.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAAVAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-23T12:11:52.758Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-23T12:11:52.758Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Application.cs",
               "DocumentMoniker": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\Application.cs",
               "RelativeDocumentMoniker": "Application.cs",
               "ToolTip": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\Application.cs",
               "RelativeToolTip": "Application.cs",
-              "ViewState": "AQIAADwAAAAAAAAAAAAEwFcAAABTAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAC8AAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-19T03:26:12.156Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-19T03:26:12.156Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "TagTubos.cs",
               "DocumentMoniker": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\TagTubos.cs",
               "RelativeDocumentMoniker": "TagTubos.cs",
               "ToolTip": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\TagTubos.cs",
               "RelativeToolTip": "TagTubos.cs",
-              "ViewState": "AQIAAGUAAAAAAAAAAAAEwG8AAAA+AAAA",
+              "ViewState": "AQIAAKsBAAAAAAAAAAAswPIBAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-18T20:19:08.456Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "BotaoLuvasEsgPluv.cs",
               "DocumentMoniker": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\BotaoLuvasEsgPluv.cs",
               "RelativeDocumentMoniker": "BotaoLuvasEsgPluv.cs",
               "ToolTip": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\BotaoLuvasEsgPluv.cs",
               "RelativeToolTip": "BotaoLuvasEsgPluv.cs",
-              "ViewState": "AQIAAE8AAAAAAAAAAAAswBEAAAAdAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-18T19:23:02.021Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-18T19:23:02.021Z"
             }
           ]
         }
