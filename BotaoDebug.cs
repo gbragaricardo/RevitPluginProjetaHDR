@@ -34,18 +34,35 @@ namespace ProjetaHDR
 
             using (Transaction transacao = new Transaction(_doc, "Nome da Transação"))
             {
+
+
+                bool linhaDeChamada = false;
+                TagOrientation orientacaoTag = TagOrientation.Horizontal;
+
+                IList<Element> tubosNaVista = SelecionarTubosNaVista();
+
+                IList<Element> tubosNaVistaFiltradosPorComprimento = FiltrarPorComprimento(tubosNaVista);
+
+                IList<Element> FiltradorPorComprimentoEVerticais = RemoverVerticais(tubosNaVistaFiltradosPorComprimento);
+
+                IList<string> orientacoes = VerificarOrientacaoEmPlanta(FiltradorPorComprimentoEVerticais);
+
+                IList<XYZ> pontosDeInsercao = PontoInsercaoTag(FiltradorPorComprimentoEVerticais);
+
+                IList<string> direcoes = VerificarDirecaoDoFluxo(FiltradorPorComprimentoEVerticais);
+
+                IList<ElementId> idsTags = ObterIdTags(direcoes);
+
+
+
                 transacao.Start();
 
+                RemoverTagsExistentes(_doc, _vistaAtiva, FiltradorPorComprimentoEVerticais, idsTags);
 
-                VerificarDirecaoDoFluxo(SelecionarTubosNaVista());
-
-
+                CriarTags(FiltradorPorComprimentoEVerticais, idsTags, _vistaAtiva.Id, linhaDeChamada, orientacaoTag, pontosDeInsercao);
 
                 transacao.Commit();
             }
-
-
-
 
             return Result.Succeeded;
         }
@@ -64,7 +81,7 @@ namespace ProjetaHDR
             foreach (Element tuboAsElement in tubosNaVista)
             {
 
-                //selecao.SetElementIds(new List<ElementId>  { tuboAsElement.Id });
+                selecao.SetElementIds(new List<ElementId>  { tuboAsElement.Id });
 
                 Pipe tuboAsPipe = tuboAsElement as Pipe;
 
@@ -130,8 +147,6 @@ namespace ProjetaHDR
                                 direcaoTemp = "Esquerda";
                                 direcaoSeta.Add(direcaoTemp);
                             }
-
-
                         }
 
                         else
@@ -139,11 +154,12 @@ namespace ProjetaHDR
                             direcaoSeta.Add(direcaoTemp);
                         }
 
+
                     }
 
                 }
 
-                //selecao.SetElementIds(new List<ElementId>());
+                selecao.SetElementIds(new List<ElementId>());
             }
 
             return direcaoSeta;
@@ -152,23 +168,51 @@ namespace ProjetaHDR
         #endregion
 
 
-        #region DirecaoSeta
-        public void DirecaoSeta(IList<string> DirecaoFluxo)
+        #region ObterIdTags
+
+        public IList<ElementId> ObterIdTags(IList<string> direcaoDoFluxo)
         {
 
-            IList<Element> tags = new FilteredElementCollector(_doc).OfCategory(BuiltInCategory.OST_PipeTags).ToElements();
+            IList<ElementId> idTag = new List<ElementId>();
+            ElementId setaEsquerda = null;
+            ElementId setaDireita = null;
 
 
-            foreach (string Direcao in DirecaoFluxo)
+            IList<Element> tiposDeTag = new FilteredElementCollector(_doc).OfCategory(BuiltInCategory.OST_PipeTags).WhereElementIsElementType().ToElements();
+
+            foreach (Element tipoDeTag in tiposDeTag)
             {
-                if (Direcao == )
-
+                if (tipoDeTag.Name == "Esquerda")
+                {
+                    setaEsquerda = tipoDeTag.Id;
+                }
+                else if( tipoDeTag.Name == "Direita")
+                {
+                    setaDireita = tipoDeTag.Id;
+                }
 
             }
 
+            if (setaEsquerda != null && setaDireita != null)
+            {
+                foreach (string direcao in direcaoDoFluxo)
+                {
+                    if (direcao == "Esquerda")
+                    {
+                        idTag.Add(setaEsquerda);
+                    }
+                    else
+                    {
+                        idTag.Add(setaDireita);
+                    }
+                }
+            }
 
+            return idTag;
         }
+
         #endregion
+
 
         #region SelecionarTubosNaVista
 
@@ -345,7 +389,7 @@ namespace ProjetaHDR
         /// <param name="orientacoes"></param> Orientação definida na função VerificaOrientacaoEmPlanta
         /// <returns> Lista XYZ </returns>
 
-        public IList<XYZ> PontoInsercaoTag(IList<Element> tubosNaVistaFiltrados, IList<string> orientacoes, string TipoDetalhe)
+        public IList<XYZ> PontoInsercaoTag(IList<Element> tubosNaVistaFiltrados)
         {
 
             IList<XYZ> pontoMedio = new List<XYZ>();        // Instancia uma lista vazia de XYZ que receberá o ponto médio de cada tubo
@@ -386,7 +430,7 @@ namespace ProjetaHDR
         /// <param name="tubosNaVistaFiltrados"></param> // Tubos que receberão novas tags
         /// <param name="IdTipoTag"></param> // ID do tipo de tag escolhido
 
-        public static void RemoverTagsExistentes(Document doc, View vistaAtiva, IList<Element> tubosNaVistaFiltrados, ElementId IdTipoTag)
+        public static void RemoverTagsExistentes(Document doc, View vistaAtiva, IList<Element> tubosNaVistaFiltrados, IList<ElementId> IdTipoTag)
         {
             // Lista de Element que recebe todas as Tags na vista ativa
             IList<Element> tagsTotalVista = new FilteredElementCollector(doc, vistaAtiva.Id).OfClass(typeof(IndependentTag)).WhereElementIsNotElementType().ToElements();
@@ -401,25 +445,24 @@ namespace ProjetaHDR
             {
                 idTubos.Add(tubo.Id); // Adiciona o id de cada tubo a lista idTubos
             }
-
-            foreach (Element tag in tagsTotalVista) // Percorre cada tag da vista ativa
+            
+            // Percorre cada tag da vista ativa
+            for (int i = 0; i < tagsTotalVista.Count; i++)
             {
-                if (tag.GetTypeId() == IdTipoTag) // Verifica se a tag iterada corresponde as tags que serão colocadas
+                if (IdTipoTag.Contains(tagsTotalVista[i].GetTypeId())) // Verifica se a tag iterada corresponde as tags que serão colocadas
                 {
 
-                    tagIndependente = (IndependentTag)tag; // Converte a Tag iterada no momento de Element para IndependentTag, para que sejam usados metodos apropriados
+                    tagIndependente = (IndependentTag)tagsTotalVista[i]; // Converte a Tag iterada no momento de Element para IndependentTag, para que sejam usados metodos apropriados
 
                     //Declara uma variavel de uma Lista ISet de ElementId que receberá o ElementId de cada tubo hospedeiro da Tag Iterada no momento
                     ISet<ElementId> idTubosComTag = tagIndependente.GetTaggedLocalElementIds();
 
                     if (idTubosComTag.Any(idTubos.Contains)) // Verifica se o Id de tubos Tageados está na lista dos tubos que receberão novas Tags
                     {
-                        doc.Delete(tag.Id); // Deleta a Tag
+                        doc.Delete(tagsTotalVista[i].Id); // Deleta a Tag
                     }
 
                 }
-
-
             }
 
         }
@@ -440,7 +483,7 @@ namespace ProjetaHDR
 
         public void CriarTags(
         IList<Element> tubosNaVistaFiltrados,
-        ElementId IdTipoTag,
+        IList<ElementId> IdTipoTag,
         ElementId IdVistaAtiva,
         bool linhaDeChamada,
         TagOrientation Orientacao,
@@ -464,7 +507,7 @@ namespace ProjetaHDR
             {
                 IndependentTag.Create( // Método que cria as tags
                     _doc,
-                    IdTipoTag,
+                    IdTipoTag[i],
                     IdVistaAtiva,
                     tubos[i],
                     linhaDeChamada,

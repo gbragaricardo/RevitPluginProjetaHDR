@@ -78,7 +78,7 @@
   
 
 
-if exist "$(AppData)\Autodesk\Revit\Addins\2022" copy "$(ProjectDir)\Utilities\*.addin" "$(AppData)\Autodesk\REVIT\Addins\2022"
+if exist "$(AppData)\Autodesk\Revit\Addins\2022" copy "$(ProjectDir)\Utilities\ProjetaHDR.addin" "$(AppData)\Autodesk\REVIT\Addins\2022"
 
 
 if exist "$(AppData)\Autodesk\Revit\Addins\2022\Resources" copy "$(ProjectDir)\Resources\*.ico" "$(AppData)\Autodesk\Revit\Addins\2022\Resources"</PostBuildEvent>
