@@ -35,9 +35,23 @@ namespace ProjetaHDR
         /// <returns></returns>
         public Result OnStartup(UIControlledApplication application)
         {
-            RibbonPanel panelTabelas = CreateRibbonPanelTabelas(application);
-            RibbonPanel panelDetalhamento = CreateRibbonPanelDetalhamento(application);
-            RibbonPanel panelDev = CreateRibbonPanelDev(application);
+            // Cria a aba "Projeta HDR" uma vez
+            string tab = "Projeta HDR";
+            try
+            {
+                application.CreateRibbonTab(tab);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Aba '{tab}' já existe ou houve um erro ao tentar criá-la: {ex.Message}");
+            }
+
+            // Cria os painéis
+            RibbonPanel panelTabelas = CreateRibbonPanel(application, tab, "Tabelas");
+            RibbonPanel panelDetalhamento = CreateRibbonPanel(application, tab, "Detalhamento");
+            RibbonPanel panelDev = CreateRibbonPanel(application, tab, "Dev");
+
+            // Caminho do assembly
             string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
 
             #region BotaoLuvasEsgPluv
@@ -132,87 +146,26 @@ namespace ProjetaHDR
             }
             #endregion
 
-
             return Result.Succeeded;
         }
 
         /// <summary>
         /// Função que cria o RibbonPanel
         /// </summary>
-        /// <param name="aplicativo"></param>
+        /// <param name="application"></param>
+        /// <param name="tabName"></param>
+        /// <param name="panelName"></param>
         /// <returns></returns>
-        public RibbonPanel CreateRibbonPanelTabelas(UIControlledApplication aplicativo)
+        public RibbonPanel CreateRibbonPanel(UIControlledApplication application, string tabName, string panelName)
         {
-            string tab = "Projeta HDR";
             RibbonPanel ribbonPanel = null;
-
             try
             {
-                aplicativo.CreateRibbonTab(tab);
+                ribbonPanel = application.CreateRibbonPanel(tabName, panelName);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
-            }
-
-            try
-            {
-                ribbonPanel = aplicativo.CreateRibbonPanel(tab, "Tabelas");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-
-            return ribbonPanel;
-        }
-
-        public RibbonPanel CreateRibbonPanelDetalhamento(UIControlledApplication aplicativo)
-        {
-            string tab = "Projeta HDR";
-            RibbonPanel ribbonPanel = null;
-
-            try
-            {
-                aplicativo.CreateRibbonTab(tab);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-
-            try
-            {
-                ribbonPanel = aplicativo.CreateRibbonPanel(tab, "Detalhamento");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-
-            return ribbonPanel;
-        }
-        public RibbonPanel CreateRibbonPanelDev(UIControlledApplication aplicativo)
-        {
-            string tab = "Projeta HDR";
-            RibbonPanel ribbonPanel = null;
-
-            try
-            {
-                aplicativo.CreateRibbonTab(tab);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-
-            try
-            {
-                ribbonPanel = aplicativo.CreateRibbonPanel(tab, "Dev");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
+                Debug.WriteLine($"Erro ao criar o painel '{panelName}': {ex.Message}");
             }
 
             return ribbonPanel;
