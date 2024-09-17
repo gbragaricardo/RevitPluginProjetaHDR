@@ -56,9 +56,9 @@
   <ItemGroup>
     <Compile Include="Application.cs" />
     <Compile Include="TagTubos.cs" />
-    <Compile Include="BotaoDebug.cs" />
+    <Compile Include="Fluxo.cs" />
     <Compile Include="TemplateClass.cs" />
-    <Compile Include="BotaoLuvasEsgPluv.cs" />
+    <Compile Include="FamiliasAninhadas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +70,12 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\fluxo.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\aninhadas.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Resources\tagstubos.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

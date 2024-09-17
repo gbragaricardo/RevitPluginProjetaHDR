@@ -12,7 +12,7 @@ using Autodesk.Revit.ApplicationServices;
 namespace ProjetaHDR
 {
     [Transaction(TransactionMode.Manual)]
-    internal class LuvasEsgPluv : IExternalCommand
+    internal class FamiliasAninhadas : IExternalCommand
     {
         //create global variables
         UIApplication _uiapp;

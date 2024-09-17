@@ -42,64 +42,33 @@ namespace ProjetaHDR
             // Caminho do assembly
             string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
 
-            #region BotaoLuvasEsgPluv
+            #region BotaoFamiliasAninhadas
             // Cria os dados do botão
-            PushButtonData luvasEsgPluvData = new PushButtonData(
-                "Luvas ESG / PLUV",            // Nome interno do botão
-                "Luvas\nESG / PLUV",            // Texto exibido no botão
+            PushButtonData familiasAninhadasData = new PushButtonData(
+                "Familias Aninhadas",            // Nome interno do botão
+                "Familias\nAninhadas",            // Texto exibido no botão
                 thisAssemblyPath,          // Caminho do assembly onde o comando está localizado
-                "ProjetaHDR.LuvasEsgPluv"    // Nome completo da classe de comando
+                "ProjetaHDR.FamiliasAninhadas"    // Nome completo da classe de comando
             );
 
             // Adiciona o botão ao painel e verifica se a adição foi bem-sucedida
-            PushButton luvasEsgPluvButton = panelTabelas.AddItem(luvasEsgPluvData) as PushButton;
+            PushButton familiasAninhadasButton = panelTabelas.AddItem(familiasAninhadasData) as PushButton;
 
             
-            if (luvasEsgPluvButton != null)
+            if (familiasAninhadasButton != null)
             {
                 // Define uma dica (tooltip) que aparecerá quando o usuário passar o mouse sobre o botão
-                luvasEsgPluvButton.ToolTip = "Adiciona o valor do parametro Abreviatura do sistema em familias aninhadas com o valor da familia hospedeira";
+                familiasAninhadasButton.ToolTip = "Adiciona o valor do parametro Abreviatura do sistema em familias aninhadas com o valor da familia hospedeira";
 
                 // Define o caminho para o ícone do botão
-                string iconPath = Path.Combine(Path.GetDirectoryName(thisAssemblyPath), "Resources", "luvas.ico");
+                string iconPath = Path.Combine(Path.GetDirectoryName(thisAssemblyPath), "Resources", "aninhadas.ico");
 
                 // Cria a imagem do ícone
                 Uri uri = new Uri(iconPath);
                 BitmapImage bitmap = new BitmapImage(uri);
 
                 // Define a imagem como o ícone do botão
-                luvasEsgPluvButton.LargeImage = bitmap;
-            }
-            #endregion
-
-
-            #region BotaoDebug
-            // Cria os dados do botão
-            PushButtonData debugData = new PushButtonData(
-                "BotaoDebug",            // Nome interno do botão
-                "BotaoDebug",            // Texto exibido no botão
-                thisAssemblyPath,          // Caminho do assembly onde o comando está localizado
-                "ProjetaHDR.BotaoDebug"    // Nome completo da classe de comando
-            );
-
-            // Adiciona o botão ao painel e verifica se a adição foi bem-sucedida
-            PushButton debugButton = panelDev.AddItem(debugData) as PushButton;
-
-            // Se o botão foi criado com sucesso
-            if (debugButton != null)
-            {
-                // Define uma dica (tooltip) que aparecerá quando o usuário passar o mouse sobre o botão
-                debugButton.ToolTip = "Auxilio a testar metodos";
-
-                // Define o caminho para o ícone do botão
-                string iconPath = Path.Combine(Path.GetDirectoryName(thisAssemblyPath), "Resources", "debug.ico");
-
-                // Cria a imagem do ícone
-                Uri uri = new Uri(iconPath);
-                BitmapImage bitmap = new BitmapImage(uri);
-
-                // Define a imagem como o ícone do botão
-                debugButton.LargeImage = bitmap;
+                familiasAninhadasButton.LargeImage = bitmap;
             }
             #endregion
 
@@ -131,6 +100,37 @@ namespace ProjetaHDR
 
                 // Define a imagem como o ícone do botão
                 tagTubosButton.LargeImage = bitmap;
+            }
+            #endregion
+
+
+            #region BotaoFluxo
+            // Cria os dados do botão
+            PushButtonData fluxoData = new PushButtonData(
+                "Fluxo",            // Nome interno do botão
+                "Fluxo\n(Em Teste)",            // Texto exibido no botão
+                thisAssemblyPath,          // Caminho do assembly onde o comando está localizado
+                "ProjetaHDR.Fluxo"    // Nome completo da classe de comando
+            );
+
+            // Adiciona o botão ao painel e verifica se a adição foi bem-sucedida
+            PushButton fluxoButton = panelDetalhamento.AddItem(fluxoData) as PushButton;
+
+            // Se o botão foi criado com sucesso
+            if (fluxoButton != null)
+            {
+                // Define uma dica (tooltip) que aparecerá quando o usuário passar o mouse sobre o botão
+                fluxoButton.ToolTip = "Adiciona a seta de fluxo a tubulações";
+
+                // Define o caminho para o ícone do botão
+                string iconPath = Path.Combine(Path.GetDirectoryName(thisAssemblyPath), "Resources", "fluxo.ico");
+
+                // Cria a imagem do ícone
+                Uri uri = new Uri(iconPath);
+                BitmapImage bitmap = new BitmapImage(uri);
+
+                // Define a imagem como o ícone do botão
+                fluxoButton.LargeImage = bitmap;
             }
             #endregion
 

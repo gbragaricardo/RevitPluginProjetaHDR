@@ -15,7 +15,7 @@ using Autodesk.Revit.DB.Mechanical;
 namespace ProjetaHDR
 {
     [Transaction(TransactionMode.Manual)]
-    internal class BotaoDebug : IExternalCommand
+    internal class Fluxo : IExternalCommand
     {
         //create global variables
         UIApplication _uiapp;
