@@ -11,6 +11,7 @@ using System.Windows;
 using Autodesk.Revit.DB.Plumbing;
 using System.Windows.Documents;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 
 
 namespace ProjetaHDR
@@ -24,7 +25,6 @@ namespace ProjetaHDR
         UIDocument _uidoc;
         Document _doc;
         View _vistaAtiva;
-        ElementId idTipoTag = new ElementId(12292844);
 
         #region MAIN
 
@@ -41,36 +41,18 @@ namespace ProjetaHDR
             using (Transaction transacao = new Transaction(_doc, "Detalhar tubos"))
             {
 
-                
-
                 bool linhaDeChamada = false; // Variavel booleana declarada com false para negar a opção de linha de chamada
 
                 TagOrientation tagOrientacao = TagOrientation.Horizontal; // Variavel declarada com a orientação trabalhada pelo revit como Horizontal para todas as tags
 
-                string escolhaDetalheUsuario = InputTipoDaTag();
 
-                int numeroTipoTag = 12292844;
 
-                switch (escolhaDetalheUsuario)
+                string detalheEscolhido = InputEscolhaDetalhe();
+
+                if (detalheEscolhido != null)
                 {
-                    case "Diametro":
-                        numeroTipoTag = 12292844;
-                        break;
 
-                    case "Fluxo":
-                        numeroTipoTag = 20856307;
-                        break;
-
-                    case "Inclinacao":
-                        numeroTipoTag = 20856648;
-                        break;
-                }
-
-                ElementId IdTipoTag = new ElementId(numeroTipoTag); // Variavel declarada com o ID do tipo da tag que será utilizada em todo o método
-
-                if (escolhaDetalheUsuario != null)
-
-                {
+                    ElementId IdTipoTag = ObterIdTags(detalheEscolhido);
 
                     // Instanciação da lista de tubos (Element) da vista ativa
                     IList<Element> tubosNaVista = new List<Element>(SelecionarTubosNaVista());
@@ -85,19 +67,21 @@ namespace ProjetaHDR
                     IList<string> orientacoesEmPlanta = VerificarOrientacaoEmPlanta(filtradorPorComprimentoEVerticaisRemovidos);
 
                     // Instanciação da lista XYZ dos pontos de inserção das Tags
-                    IList<XYZ> pontosDeInsercaoTags = PontoInsercaoTag(filtradorPorComprimentoEVerticaisRemovidos, orientacoesEmPlanta, escolhaDetalheUsuario);
+                    IList<XYZ> pontosDeInsercaoTags = PontoInsercaoTag(filtradorPorComprimentoEVerticaisRemovidos, orientacoesEmPlanta, detalheEscolhido);
+
 
 
                     transacao.Start(); // Inicio da transação que faz modificações do Projeto/Arquivo
 
                     // Uso da variavel estatica que remove as tags do mesmo ID da que será utilizada que estão nos mesmos tubos que serão utilizados
-                    RemoverTagsExistentes(_doc, _vistaAtiva, filtradorPorComprimentoEVerticaisRemovidos, idTipoTag);
+                    RemoverTagsExistentes(_doc, _vistaAtiva, filtradorPorComprimentoEVerticaisRemovidos, IdTipoTag);
 
                     // Criação das Tags
                     CriarTags(filtradorPorComprimentoEVerticaisRemovidos, IdTipoTag, _vistaAtiva.Id, linhaDeChamada, tagOrientacao, pontosDeInsercaoTags);
 
-                    transacao.Commit(); // Fim da transação que faz modificações do Projeto/Arquivo
+                    SetarValorAoParametroInclinacao(filtradorPorComprimentoEVerticaisRemovidos);
 
+                    transacao.Commit(); // Fim da transação que faz modificações do Projeto/Arquivo
                 }
             }
 
@@ -107,7 +91,7 @@ namespace ProjetaHDR
 
 
         #region InputUsuario
-        public string InputTipoDaTag()
+        public string InputEscolhaDetalhe()
         {
             string tipoEscolhido = "";
 
@@ -122,14 +106,13 @@ namespace ProjetaHDR
             entradaTipoTag.CommonButtons = buttons;
 
             // Adiciona os comandos de links (opções) que o usuário pode escolher
-            entradaTipoTag.AddCommandLink(TaskDialogCommandLinkId.CommandLink1, "Ø Diâmetro");
-            entradaTipoTag.AddCommandLink(TaskDialogCommandLinkId.CommandLink2, "Fluxo --->");
-            entradaTipoTag.AddCommandLink(TaskDialogCommandLinkId.CommandLink3, "% Inclinação ");
+            entradaTipoTag.AddCommandLink(TaskDialogCommandLinkId.CommandLink1, "Diâmetro");
+            entradaTipoTag.AddCommandLink(TaskDialogCommandLinkId.CommandLink3, "Inclinação ");
 
             // Exibe o diálogo e captura a resposta do usuário
             TaskDialogResult result = entradaTipoTag.Show();
 
-            if (result == TaskDialogResult.Cancel)
+            if (result == TaskDialogResult.Cancel || result == TaskDialogResult.Close)
             {
                 // Se o usuário clicar em Cancel, encerra o script retornando null ou lançando uma exceção
                 return null;
@@ -139,9 +122,6 @@ namespace ProjetaHDR
             {
                 case TaskDialogResult.CommandLink1:
                     tipoEscolhido = "Diametro";
-                    break;
-                case TaskDialogResult.CommandLink2:
-                    tipoEscolhido = "Fluxo";
                     break;
                 case TaskDialogResult.CommandLink3:
                     tipoEscolhido = "Inclinacao";
@@ -154,6 +134,37 @@ namespace ProjetaHDR
 
             return tipoEscolhido;
         }
+        #endregion
+
+
+        #region ObterIdTags
+
+        public ElementId ObterIdTags(string detalheEscolhido)
+        {
+
+            ElementId idTag = null;
+            IList<Element> tiposDeTag = new FilteredElementCollector(_doc).OfCategory(BuiltInCategory.OST_PipeTags).WhereElementIsElementType().ToElements();
+
+            foreach (Element tipoDeTag in tiposDeTag)
+            {
+                if (tipoDeTag.Name == detalheEscolhido)
+                {
+                    idTag = tipoDeTag.Id;
+                }
+            }
+
+            if (idTag == null)
+            {
+                TaskDialog.Show("Erro", $"Tag com nome {detalheEscolhido} não encontrada");
+                return null;
+            }
+            else
+            {
+                return idTag;
+            }
+
+        }
+
         #endregion
 
 
@@ -183,7 +194,7 @@ namespace ProjetaHDR
         /// </summary>
         /// <param name="tubosNaVista"></param> Recebe tubos selecionados da vista ativa
         /// <returns>Lista de Elemnent</returns>
-         
+
         public IList<Element> FiltrarPorComprimento(IList<Element> tubosNaVista)
         {
             IList<Element> filtrados = new List<Element>(); // Instancia uma lista vazia que será o retorno do tipo lista de Element
@@ -229,13 +240,13 @@ namespace ProjetaHDR
 
                 // Condiciona os tubos que tem variação no Eixo Y ou Eixo X, removendo assim tubos verticais pois só variam em Z
 
-                if (Math.Round(pontoInicial.X) != Math.Round(pontoFinal.X) || Math.Round(pontoInicial.Y) != Math.Round(pontoFinal.Y)) 
+                if (Math.Round(pontoInicial.X) != Math.Round(pontoFinal.X) || Math.Round(pontoInicial.Y) != Math.Round(pontoFinal.Y))
                 {
                     filtrados.Add(tubo); // Adiciona a lista de retorno os tubos que não sao verticais
                 }
             }
 
-            return filtrados ;
+            return filtrados;
         }
         #endregion
 
@@ -251,7 +262,7 @@ namespace ProjetaHDR
 
         public IList<string> VerificarOrientacaoEmPlanta(IList<Element> tubosNaVistaFiltrados)
         {
-            
+
             IList<string> orientacaoTubos = new List<string>();  // Instancia uma lista vazia que será o retorno do tipo lista de string
 
             double margemDePrecisao = 0.01; // declara uma variavel double que será a margem de precisão utilizada
@@ -275,13 +286,13 @@ namespace ProjetaHDR
                     // Verifica se o valor absoluto do delta x - delta y é menor que a margem de precisao
                     // Pois assim é possível verificar se percorrem em um angulo de 45° pois percorrem a mesma quantidade no eixo x e y. Portanto sao diagonais
 
-                    if (Math.Abs((deltaX - deltaY)) < margemDePrecisao)  
+                    if (Math.Abs((deltaX - deltaY)) < margemDePrecisao)
                     {
 
                         // Verifica se o produto de cada Delta (X e Y) é positivo (Maior que zero)
                         // Pois assim é possivel constatar que o tubo está numa posição similar à " / "
                         // Caso contrario o tubos estará em posição mais proxima a uma barra invertida " \ "
- 
+
                         if ((pontoFinal.X - pontoInicial.X) * (pontoFinal.Y - pontoInicial.Y) > 0)
                         {
                             orientacaoTubos.Add("Diagonal Positiva"); //Adiciona a orientação do tubo a lista
@@ -332,7 +343,7 @@ namespace ProjetaHDR
         /// <param name="orientacoes"></param> Orientação definida na função VerificaOrientacaoEmPlanta
         /// <returns> Lista XYZ </returns>
 
-        public IList<XYZ> PontoInsercaoTag( IList<Element> tubosNaVistaFiltrados, IList<string> orientacoes, string TipoDetalhe)
+        public IList<XYZ> PontoInsercaoTag(IList<Element> tubosNaVistaFiltrados, IList<string> orientacoes, string detalheEscolhido)
         {
 
             IList<XYZ> pontoMedio = new List<XYZ>();        // Instancia uma lista vazia de XYZ que receberá o ponto médio de cada tubo
@@ -342,11 +353,11 @@ namespace ProjetaHDR
 
             foreach (Element tubo in tubosNaVistaFiltrados) // Percorre cada tubo
             {
-                 
+
                 Location tuboLocation = tubo.Location; // Obtem a localização no modelo de cada tubo 
 
                 // a partir da localização dos tubos Atribui uma variavel da classe LocationCurve para uso dos metodos apropriados
-                LocationCurve localCurvaTubo = (LocationCurve)tuboLocation; 
+                LocationCurve localCurvaTubo = (LocationCurve)tuboLocation;
                 Curve curvaTubo = localCurvaTubo.Curve; // Atribui uma variavel da classe Curve a partir de LocationCurve
 
                 XYZ pontoMedioCurva = curvaTubo.Evaluate(0.5, true); //Encontra o ponto médio da curva do tubo que está sendo iterado no momento
@@ -361,94 +372,66 @@ namespace ProjetaHDR
             {
                 if (orientacoes[i] == "Horizontal") // Condiciona para apenas tubos Horizontais
                 {
-                    // Ponto de inserção da tag recebe o valor de deslocamento em Y e soma tudo ao ponto médio
-                    switch (TipoDetalhe)
+                    if (detalheEscolhido == "Diametro")
                     {
-                        case "Diametro":
-                            pontoDeInsercaoTag.Add(new XYZ(0, deslocamentos[i], 0) + pontoMedio[i]);
-                            break;
-                        case "Fluxo":
-                            pontoDeInsercaoTag.Add(pontoMedio[i]);
-                            break;
-                        case "Inclinacao":
-                            pontoDeInsercaoTag.Add(new XYZ(0, -deslocamentos[i], 0) + pontoMedio[i]);
-                            break;
+                        // Ponto de inserção da tag recebe o valor de deslocamento em Y e soma tudo ao ponto médio
+                        pontoDeInsercaoTag.Add(new XYZ(0, deslocamentos[i], 0) + pontoMedio[i]);
+                    }
+                    else if (detalheEscolhido == "Inclinacao")
+                    {
+                        // Ponto de inserção da tag recebe o valor de deslocamento em Y e soma tudo ao ponto médio
+                        pontoDeInsercaoTag.Add(new XYZ(0, -deslocamentos[i], 0) + pontoMedio[i]);
+                    }
 
-                        default:
-                            pontoDeInsercaoTag.Add(pontoMedio[i]);
-                            break;
-                    }       
-                      
                 }
 
                 else if (orientacoes[i] == "Vertical") // Condiciona para apenas tubos Verticais
                 {
-                    // Ponto de inserção da tag recebe o valor negativo do deslocamento em X, e soma tudo ao ponto médio
-                    switch (TipoDetalhe)
+                    if (detalheEscolhido == "Diametro")
                     {
-                        case "Diametro":
-                            pontoDeInsercaoTag.Add(new XYZ(-deslocamentos[i], 0, 0) + pontoMedio[i]);
-                            break;
-                        case "Fluxo":
-                            pontoDeInsercaoTag.Add(pontoMedio[i]);
-                            break;
-                        case "Inclinacao":
-                            pontoDeInsercaoTag.Add(new XYZ(deslocamentos[i], 0, 0) + pontoMedio[i]);
-                            break;
-
-                        default:
-                            pontoDeInsercaoTag.Add(pontoMedio[i]);
-                            break;
+                        // Ponto de inserção da tag recebe o valor negativo do deslocamento em X, e soma tudo ao ponto médio
+                        pontoDeInsercaoTag.Add(new XYZ(-deslocamentos[i], 0, 0) + pontoMedio[i]);
                     }
-                                    
+                    else if (detalheEscolhido == "Inclinacao")
+                    {
+                        // Ponto de inserção da tag recebe o valor negativo do deslocamento em X, e soma tudo ao ponto médio
+                        pontoDeInsercaoTag.Add(new XYZ(deslocamentos[i], 0, 0) + pontoMedio[i]);
+                    }
                 }
 
                 else if (orientacoes[i] == "Diagonal Positiva") // Condiciona para apenas tubos Diagonal Positiva
                 {
-                    // Ponto de inserção da tag recebe o valor negativo do deslocamento em X, Positivo em Y, e soma tudo ao ponto médio
-                    switch (TipoDetalhe)
+                    if (detalheEscolhido == "Diametro")
                     {
-                        case "Diametro":
-                            pontoDeInsercaoTag.Add(new XYZ(-deslocamentos[i], deslocamentos[i], 0) + pontoMedio[i]);
-                            break;
-                        case "Fluxo":
-                            pontoDeInsercaoTag.Add(pontoMedio[i]);
-                            break;
-                        case "Inclinacao":
-                            pontoDeInsercaoTag.Add(new XYZ(deslocamentos[i], -deslocamentos[i], 0) + pontoMedio[i]);
-                            break;
-
-                        default:
-                            pontoDeInsercaoTag.Add(pontoMedio[i]);
-                            break;
+                        // Ponto de inserção da tag recebe o valor negativo do deslocamento em X, Positivo em Y, e soma tudo ao ponto médio
+                        pontoDeInsercaoTag.Add(new XYZ(-deslocamentos[i], deslocamentos[i], 0) + pontoMedio[i]);
                     }
+                    else if (detalheEscolhido == "Inclinacao")
+                    {
+                        // Ponto de inserção da tag recebe o valor negativo do deslocamento em X, Positivo em Y, e soma tudo ao ponto médio
+                        pontoDeInsercaoTag.Add(new XYZ(deslocamentos[i], -deslocamentos[i], 0) + pontoMedio[i]);
+                    }
+
                 }
 
                 else if (orientacoes[i] == "Diagonal Negativa")
                 {
-                    // Ponto de inserção da tag recebe o valor do deslocamento em X e Y, e soma tudo ao ponto médio
-                    switch (TipoDetalhe)
+                    if (detalheEscolhido == "Diametro")
                     {
-                        case "Diametro":
-                            pontoDeInsercaoTag.Add(new XYZ(deslocamentos[i], deslocamentos[i], 0) + pontoMedio[i]);
-                            break;
-                        case "Fluxo":
-                            pontoDeInsercaoTag.Add(pontoMedio[i]);
-                            break;
-                        case "Inclinacao":
-                            pontoDeInsercaoTag.Add(new XYZ(-deslocamentos[i], -deslocamentos[i], 0) + pontoMedio[i]);
-                            break;
-
-                        default:
-                            pontoDeInsercaoTag.Add(pontoMedio[i]);
-                            break;
+                        // Ponto de inserção da tag recebe o valor do deslocamento em X e Y, e soma tudo ao ponto médio
+                        pontoDeInsercaoTag.Add(new XYZ(deslocamentos[i], deslocamentos[i], 0) + pontoMedio[i]);
                     }
-                    
+                    else if (detalheEscolhido == "Inclinacao")
+                    {
+                        // Ponto de inserção da tag recebe o valor do deslocamento em X e Y, e soma tudo ao ponto médio
+                        pontoDeInsercaoTag.Add(new XYZ(-deslocamentos[i], -deslocamentos[i], 0) + pontoMedio[i]);
+                    }
+
                 }
 
                 else
                 {
-                    pontoDeInsercaoTag.Add(pontoMedio[i]); // Caso nao atenda a nenhuma condição o ponto de inserção da tag recebe o ponto medio
+                    pontoDeInsercaoTag = pontoMedio; // Caso nao atenda a nenhuma condição o ponto de inserção da tag recebe o ponto 
                 }
             }
 
@@ -471,7 +454,7 @@ namespace ProjetaHDR
         {
             // Lista de Element que recebe todas as Tags na vista ativa
             IList<Element> tagsTotalVista = new FilteredElementCollector(doc, vistaAtiva.Id).OfClass(typeof(IndependentTag)).WhereElementIsNotElementType().ToElements();
-            
+
             //Lista de ElementId vazia que receberá o ID de todos os tubos recebidos por parametro
             IList<ElementId> idTubos = new List<ElementId>();
 
@@ -482,10 +465,10 @@ namespace ProjetaHDR
             {
                 idTubos.Add(tubo.Id); // Adiciona o id de cada tubo a lista idTubos
             }
-            
-            foreach(Element tag in tagsTotalVista) // Percorre cada tag da vista ativa
+
+            foreach (Element tag in tagsTotalVista) // Percorre cada tag da vista ativa
             {
-                if(tag.GetTypeId() == IdTipoTag) // Verifica se a tag iterada corresponde as tags que serão colocadas
+                if (tag.GetTypeId() == IdTipoTag) // Verifica se a tag iterada corresponde as tags que serão colocadas
                 {
 
                     tagIndependente = (IndependentTag)tag; // Converte a Tag iterada no momento de Element para IndependentTag, para que sejam usados metodos apropriados
@@ -499,10 +482,54 @@ namespace ProjetaHDR
                     }
 
                 }
-                
+
 
             }
-            
+
+        }
+        #endregion
+
+
+        #region SetarValorAoParametroInclinacao
+
+        public void SetarValorAoParametroInclinacao(IList<Element> tubosNaVista)
+        {
+
+
+            foreach (Element tubo in tubosNaVista)
+            {
+                Parameter parametroInclinacao = tubo.LookupParameter("PRJ HDR: Inclinacao Tag");
+                Parameter parametroAbreviaturaSistema = tubo.get_Parameter(BuiltInParameter.RBS_DUCT_PIPE_SYSTEM_ABBREVIATION_PARAM);
+                Parameter parametroClassificacaoSistema = tubo.get_Parameter(BuiltInParameter.RBS_SYSTEM_CLASSIFICATION_PARAM);
+                Parameter parametroDiametro = tubo.get_Parameter(BuiltInParameter.RBS_PIPE_DIAMETER_PARAM);
+
+                string abreviaturaSistema = parametroAbreviaturaSistema.AsString();
+                string classificacaoSistema = parametroClassificacaoSistema.AsString();
+                double diametroEmMilimetros = parametroDiametro.AsDouble() * 304.8;
+
+                if (abreviaturaSistema == "ESG")
+                {
+                    if (classificacaoSistema == "Sanitário")
+                    {
+
+                        if (diametroEmMilimetros <= 75)
+                        {
+                            parametroInclinacao.Set("2%");
+
+                        }
+                        else
+                        {
+                            parametroInclinacao.Set("1%");
+                        }
+                    }
+
+                    else
+                    {
+                        parametroInclinacao.Set("1%");
+                    }
+                }
+            }
+
         }
         #endregion
 
@@ -519,7 +546,7 @@ namespace ProjetaHDR
         /// <param name="Orientacao"></param> // Orientação da tag que o revit utiliza, vertical ou horizontal
         /// <param name="pontosInsercao"></param> // pontos de inserição XYZ que as tags serao colocadas
 
-            public void CriarTags(
+        public void CriarTags(
             IList<Element> tubosNaVistaFiltrados,
             ElementId IdTipoTag,
             ElementId IdVistaAtiva,
@@ -532,13 +559,13 @@ namespace ProjetaHDR
             _vistaAtiva = _doc.ActiveView;
 
             // Instancia uma lista vazia de reference pois o método de criar tags utilizada a class Reference para os elementos a serem tageados
-            IList<Reference> tubos = new List<Reference>(); 
+            IList<Reference> tubos = new List<Reference>();
 
             foreach (Element tubo in tubosNaVistaFiltrados) // Percorre cada Element (tubo)
             {
                 Reference referenciaTubo = new Reference(tubo); // Converte a class Element de cada tubo para Reference
-                tubos .Add(referenciaTubo); // Adiciona os tubos convertidos a lista de Reference que será utilziada no método de criar as tags
-                
+                tubos.Add(referenciaTubo); // Adiciona os tubos convertidos a lista de Reference que será utilziada no método de criar as tags
+
             }
 
             for (int i = 0; i < tubosNaVistaFiltrados.Count; i++) // Itera sob o tamanho da lista de tubos para que cada tubo receba uma tag

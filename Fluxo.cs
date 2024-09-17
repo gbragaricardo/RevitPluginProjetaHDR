@@ -32,8 +32,7 @@ namespace ProjetaHDR
             _doc = _uidoc.Document;
             _vistaAtiva = _doc.ActiveView;
 
-            using (Transaction transacao = new Transaction(_doc, "Nome da Transação"))
-            {
+           
 
 
                 bool linhaDeChamada = false;
@@ -54,7 +53,8 @@ namespace ProjetaHDR
                 IList<ElementId> idsTags = ObterIdTags(direcoes);
 
 
-
+            using (Transaction transacao = new Transaction(_doc, "Fluxo"))
+            {
                 transacao.Start();
 
                 RemoverTagsExistentes(_doc, _vistaAtiva, FiltradorPorComprimentoEVerticais, idsTags);

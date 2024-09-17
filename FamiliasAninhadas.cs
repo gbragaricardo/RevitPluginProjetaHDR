@@ -30,7 +30,7 @@ namespace ProjetaHDR
             _doc = _uidoc.Document;
             int instanciasAlteradas;
 
-            using (Transaction transacao = new Transaction(_doc, "Luvas ESG / PLUV"))
+            using (Transaction transacao = new Transaction(_doc, "Familias Aninhadas"))
             {
 
                 transacao.Start(); //Inicia Mudanças no arquivo
@@ -43,7 +43,7 @@ namespace ProjetaHDR
             }
                 
 
-            TaskDialog.Show("Retorno", $"{instanciasAlteradas} Luvas Modificadas"); //Retorna a quantidade de instancias que receberam valor no parametro
+            TaskDialog.Show("Retorno", $"{instanciasAlteradas} Familias Modificadas"); //Retorna a quantidade de instancias que receberam valor no parametro
 
             return Result.Succeeded; //Retorno padrao do metodo execute
         }
@@ -103,7 +103,7 @@ namespace ProjetaHDR
                             {
                                 Parameter parametroAninhado = conexaoInstancia.LookupParameter(nomeParametroAninhado); // Atribui em "parametroAninhado" parametro destino na familia alvo 
 
-                                if (parametroAninhado != null) // Garante que há o parametro aninhado
+                                if (parametroAninhado != null && parametroAninhado.AsString() != valorParametroHospedeiro) // Garante que há o parametro aninhado
                                 {
                                     parametroAninhado.Set(valorParametroHospedeiro); // Copia o valor do parametro hospedeiro para o parametro na familia aninhada
                                     contador++; // Contabiliza a mudança no parametro aninhado
