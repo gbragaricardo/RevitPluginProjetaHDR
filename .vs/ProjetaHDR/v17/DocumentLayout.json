@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\application.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|c:\\users\\ricar\\source\\repos\\projetahdr\\application.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|solutionrelative:application.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|c:\\users\\ricar\\source\\repos\\projetahdr\\tagtubos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|solutionrelative:tagtubos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\botaoluvasesgpluv.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|solutionrelative:botaoluvasesgpluv.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\botaodebug.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|solutionrelative:botaodebug.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\utilities\\projetahdr.addin||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|solutionrelative:utilities\\projetahdr.addin||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\tagtubos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|solutionrelative:tagtubos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\botaodebug.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|solutionrelative:botaodebug.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -41,19 +41,20 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "BotaoLuvasEsgPluv.cs",
               "DocumentMoniker": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\BotaoLuvasEsgPluv.cs",
               "RelativeDocumentMoniker": "BotaoLuvasEsgPluv.cs",
               "ToolTip": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\BotaoLuvasEsgPluv.cs",
               "RelativeToolTip": "BotaoLuvasEsgPluv.cs",
-              "ViewState": "AQIAAFIAAAAAAAAAAAAowGMAAABQAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-27T14:36:07.157Z"
+              "WhenOpened": "2024-08-27T14:36:07.157Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "ProjetaHDR.addin",
               "DocumentMoniker": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\Utilities\\ProjetaHDR.addin",
               "RelativeDocumentMoniker": "Utilities\\ProjetaHDR.addin",
@@ -61,7 +62,8 @@
               "RelativeToolTip": "Utilities\\ProjetaHDR.addin",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000072|",
-              "WhenOpened": "2024-08-21T01:56:54.975Z"
+              "WhenOpened": "2024-08-21T01:56:54.975Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -71,14 +73,14 @@
               "RelativeDocumentMoniker": "Application.cs",
               "ToolTip": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\Application.cs",
               "RelativeToolTip": "Application.cs",
-              "ViewState": "AQIAAI0AAAAAAAAAAAAowKgAAAANAAAA",
+              "ViewState": "AQIAABEAAAAAAAAAAAAQwBcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-19T03:26:12.156Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "TagTubos.cs",
               "DocumentMoniker": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\TagTubos.cs",
               "RelativeDocumentMoniker": "TagTubos.cs",
@@ -91,7 +93,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "BotaoDebug.cs",
               "DocumentMoniker": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\BotaoDebug.cs",
               "RelativeDocumentMoniker": "BotaoDebug.cs",

@@ -11,28 +11,17 @@ using System.IO;
 
 namespace ProjetaHDR
 {
-    /// <summary>
-    /// Implements the Revit add-in interface IExternalApplication
-    /// </summary>
+    
     [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
     [Autodesk.Revit.Attributes.Regeneration(Autodesk.Revit.Attributes.RegenerationOption.Manual)]
     public class Application : IExternalApplication
     {
-        /// <summary>
-        /// Implements the on Shutdown event
-        /// </summary>
-        /// <param name="application"></param>
-        /// <returns></returns>
+        
         public Result OnShutdown(UIControlledApplication application)
         {
             return Result.Succeeded;
         }
 
-        /// <summary>
-        /// Implements the OnStartup event
-        /// </summary>
-        /// <param name="application"></param>
-        /// <returns></returns>
         public Result OnStartup(UIControlledApplication application)
         {
             // Cria a aba "Projeta HDR" uma vez
@@ -47,9 +36,8 @@ namespace ProjetaHDR
             }
 
             // Cria os painéis
-            RibbonPanel panelTabelas = CreateRibbonPanel(application, tab, "Tabelas");
-            RibbonPanel panelDetalhamento = CreateRibbonPanel(application, tab, "Detalhamento");
-            RibbonPanel panelDev = CreateRibbonPanel(application, tab, "Dev");
+            RibbonPanel panelTabelas = CriarPainel(application, tab, "Tabelas");
+            RibbonPanel panelDetalhamento = CriarPainel(application, tab, "Detalhamento");         
 
             // Caminho do assembly
             string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
@@ -66,7 +54,7 @@ namespace ProjetaHDR
             // Adiciona o botão ao painel e verifica se a adição foi bem-sucedida
             PushButton luvasEsgPluvButton = panelTabelas.AddItem(luvasEsgPluvData) as PushButton;
 
-            // Se o botão foi criado com sucesso
+            
             if (luvasEsgPluvButton != null)
             {
                 // Define uma dica (tooltip) que aparecerá quando o usuário passar o mouse sobre o botão
@@ -149,23 +137,17 @@ namespace ProjetaHDR
             return Result.Succeeded;
         }
 
-        /// <summary>
-        /// Função que cria o RibbonPanel
-        /// </summary>
-        /// <param name="application"></param>
-        /// <param name="tabName"></param>
-        /// <param name="panelName"></param>
-        /// <returns></returns>
-        public RibbonPanel CreateRibbonPanel(UIControlledApplication application, string tabName, string panelName)
+        
+        public RibbonPanel CriarPainel(UIControlledApplication application, string nomeAba, string nomePainel)
         {
             RibbonPanel ribbonPanel = null;
             try
             {
-                ribbonPanel = application.CreateRibbonPanel(tabName, panelName);
+                ribbonPanel = application.CreateRibbonPanel(nomeAba, nomePainel);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Erro ao criar o painel '{panelName}': {ex.Message}");
+                Debug.WriteLine($"Erro ao criar o painel '{nomePainel}': {ex.Message}");
             }
 
             return ribbonPanel;
