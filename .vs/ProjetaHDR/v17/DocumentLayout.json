@@ -3,20 +3,30 @@
   "WorkspaceRootPath": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|c:\\users\\ricar\\source\\repos\\projetahdr\\application.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|c:\\users\\ricar\\source\\repos\\projetahdr\\familiasaninhadas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|solutionrelative:familiasaninhadas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|c:\\users\\ricar\\source\\repos\\projetahdr\\fluxo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|solutionrelative:fluxo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\application.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|solutionrelative:application.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\tagtubos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|c:\\users\\ricar\\source\\repos\\projetahdr\\tagtubos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|solutionrelative:tagtubos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\botaoluvasesgpluv.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|solutionrelative:botaoluvasesgpluv.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|ProjetaHDR||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|solutionrelative:properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53EC75F6-8956-4B7A-A0CD-CEAC2B7A4F88}|ProjetaHDR.csproj|c:\\users\\ricar\\source\\repos\\projetahdr\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|6185191f-1008-4fb2-a715-3a4e4f27e610"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,11 +36,49 @@
       "DocumentGroups": [
         {
           "DockedWidth": 199,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
+              "Title": "FamiliasAninhadas.cs",
+              "DocumentMoniker": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\FamiliasAninhadas.cs",
+              "RelativeDocumentMoniker": "FamiliasAninhadas.cs",
+              "ToolTip": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\FamiliasAninhadas.cs",
+              "RelativeToolTip": "FamiliasAninhadas.cs",
+              "ViewState": "AQIAAFsAAAAAAAAAAAAowGwAAABeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-17T21:48:21.815Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Fluxo.cs",
+              "DocumentMoniker": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\Fluxo.cs",
+              "RelativeDocumentMoniker": "Fluxo.cs",
+              "ToolTip": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\Fluxo.cs",
+              "RelativeToolTip": "Fluxo.cs",
+              "ViewState": "AQIAAI0AAAAAAAAAAAAowEEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-17T21:41:59.671Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ProjetaHDR",
+              "DocumentMoniker": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\ProjetaHDR.csproj",
+              "RelativeDocumentMoniker": "ProjetaHDR.csproj",
+              "ToolTip": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\ProjetaHDR.csproj",
+              "RelativeToolTip": "ProjetaHDR.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-09-17T21:37:15.495Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "AssemblyInfo.cs",
               "DocumentMoniker": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\Properties\\AssemblyInfo.cs",
               "RelativeDocumentMoniker": "Properties\\AssemblyInfo.cs",
@@ -38,44 +86,34 @@
               "RelativeToolTip": "Properties\\AssemblyInfo.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-23T12:11:52.758Z"
+              "WhenOpened": "2024-08-23T12:11:52.758Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Application.cs",
               "DocumentMoniker": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\Application.cs",
               "RelativeDocumentMoniker": "Application.cs",
               "ToolTip": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\Application.cs",
               "RelativeToolTip": "Application.cs",
-              "ViewState": "AQIAADMAAAAAAAAAAAAowEIAAAA4AAAA",
+              "ViewState": "AQIAAEkAAAAAAAAAAAAowCwAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-19T03:26:12.156Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "TagTubos.cs",
               "DocumentMoniker": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\TagTubos.cs",
               "RelativeDocumentMoniker": "TagTubos.cs",
               "ToolTip": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\TagTubos.cs",
               "RelativeToolTip": "TagTubos.cs",
-              "ViewState": "AQIAAM4AAAAAAAAAAAAAwPIBAAAyAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEoCAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-18T20:19:08.456Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "BotaoLuvasEsgPluv.cs",
-              "DocumentMoniker": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\BotaoLuvasEsgPluv.cs",
-              "RelativeDocumentMoniker": "BotaoLuvasEsgPluv.cs",
-              "ToolTip": "C:\\Users\\ricar\\source\\repos\\ProjetaHDR\\BotaoLuvasEsgPluv.cs",
-              "RelativeToolTip": "BotaoLuvasEsgPluv.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-18T19:23:02.021Z"
+              "WhenOpened": "2024-08-18T20:19:08.456Z",
+              "EditorCaption": ""
             }
           ]
         }

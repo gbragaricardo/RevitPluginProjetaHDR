@@ -11,61 +11,64 @@ using System.IO;
 
 namespace ProjetaHDR
 {
-    /// <summary>
-    /// Implements the Revit add-in interface IExternalApplication
-    /// </summary>
+    
     [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
     [Autodesk.Revit.Attributes.Regeneration(Autodesk.Revit.Attributes.RegenerationOption.Manual)]
     public class Application : IExternalApplication
     {
-        /// <summary>
-        /// Implements the on Shutdown event
-        /// </summary>
-        /// <param name="application"></param>
-        /// <returns></returns>
+        
         public Result OnShutdown(UIControlledApplication application)
         {
             return Result.Succeeded;
         }
 
-        /// <summary>
-        /// Implements the OnStartup event
-        /// </summary>
-        /// <param name="application"></param>
-        /// <returns></returns>
         public Result OnStartup(UIControlledApplication application)
         {
-            RibbonPanel panelTabelas = CreateRibbonPanelTabelas(application);
-            RibbonPanel panelDetalhamento = CreateRibbonPanelDetalhamento(application);
+            // Cria a aba "Projeta HDR" uma vez
+            string tab = "Projeta HDR";
+            try
+            {
+                application.CreateRibbonTab(tab);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Aba '{tab}' já existe ou houve um erro ao tentar criá-la: {ex.Message}");
+            }
+
+            // Cria os painéis
+            RibbonPanel panelTabelas = CriarPainel(application, tab, "Tabelas");
+            RibbonPanel panelDetalhamento = CriarPainel(application, tab, "Detalhamento");         
+
+            // Caminho do assembly
             string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
 
-            #region BotaoLuvasEsgPluv
+            #region BotaoFamiliasAninhadas
             // Cria os dados do botão
-            PushButtonData luvasEsgPluvData = new PushButtonData(
-                "Luvas ESG / PLUV",            // Nome interno do botão
-                "Luvas\nESG / PLUV",            // Texto exibido no botão
+            PushButtonData familiasAninhadasData = new PushButtonData(
+                "Familias Aninhadas",            // Nome interno do botão
+                "Familias\nAninhadas",            // Texto exibido no botão
                 thisAssemblyPath,          // Caminho do assembly onde o comando está localizado
-                "ProjetaHDR.LuvasEsgPluv"    // Nome completo da classe de comando
+                "ProjetaHDR.FamiliasAninhadas"    // Nome completo da classe de comando
             );
 
             // Adiciona o botão ao painel e verifica se a adição foi bem-sucedida
-            PushButton luvasEsgPluvButton = panelTabelas.AddItem(luvasEsgPluvData) as PushButton;
+            PushButton familiasAninhadasButton = panelTabelas.AddItem(familiasAninhadasData) as PushButton;
 
-            // Se o botão foi criado com sucesso
-            if (luvasEsgPluvButton != null)
+            
+            if (familiasAninhadasButton != null)
             {
                 // Define uma dica (tooltip) que aparecerá quando o usuário passar o mouse sobre o botão
-                luvasEsgPluvButton.ToolTip = "Adiciona o valor do parametro Abreviatura do sistema em familias aninhadas com o valor da familia hospedeira";
+                familiasAninhadasButton.ToolTip = "Adiciona o valor do parametro Abreviatura do sistema em familias aninhadas com o valor da familia hospedeira";
 
                 // Define o caminho para o ícone do botão
-                string iconPath = Path.Combine(Path.GetDirectoryName(thisAssemblyPath), "Resources", "luvas.ico");
+                string iconPath = Path.Combine(Path.GetDirectoryName(thisAssemblyPath), "Resources", "aninhadas.ico");
 
                 // Cria a imagem do ícone
                 Uri uri = new Uri(iconPath);
                 BitmapImage bitmap = new BitmapImage(uri);
 
                 // Define a imagem como o ícone do botão
-                luvasEsgPluvButton.LargeImage = bitmap;
+                familiasAninhadasButton.LargeImage = bitmap;
             }
             #endregion
 
@@ -101,61 +104,50 @@ namespace ProjetaHDR
             #endregion
 
 
+            #region BotaoFluxo
+            // Cria os dados do botão
+            PushButtonData fluxoData = new PushButtonData(
+                "Fluxo",            // Nome interno do botão
+                "Fluxo\n(Em Teste)",            // Texto exibido no botão
+                thisAssemblyPath,          // Caminho do assembly onde o comando está localizado
+                "ProjetaHDR.Fluxo"    // Nome completo da classe de comando
+            );
+
+            // Adiciona o botão ao painel e verifica se a adição foi bem-sucedida
+            PushButton fluxoButton = panelDetalhamento.AddItem(fluxoData) as PushButton;
+
+            // Se o botão foi criado com sucesso
+            if (fluxoButton != null)
+            {
+                // Define uma dica (tooltip) que aparecerá quando o usuário passar o mouse sobre o botão
+                fluxoButton.ToolTip = "Adiciona a seta de fluxo a tubulações";
+
+                // Define o caminho para o ícone do botão
+                string iconPath = Path.Combine(Path.GetDirectoryName(thisAssemblyPath), "Resources", "fluxo.ico");
+
+                // Cria a imagem do ícone
+                Uri uri = new Uri(iconPath);
+                BitmapImage bitmap = new BitmapImage(uri);
+
+                // Define a imagem como o ícone do botão
+                fluxoButton.LargeImage = bitmap;
+            }
+            #endregion
+
             return Result.Succeeded;
         }
 
-        /// <summary>
-        /// Função que cria o RibbonPanel
-        /// </summary>
-        /// <param name="aplicativo"></param>
-        /// <returns></returns>
-        public RibbonPanel CreateRibbonPanelTabelas(UIControlledApplication aplicativo)
+        
+        public RibbonPanel CriarPainel(UIControlledApplication application, string nomeAba, string nomePainel)
         {
-            string tab = "Projeta HDR";
             RibbonPanel ribbonPanel = null;
-
             try
             {
-                aplicativo.CreateRibbonTab(tab);
+                ribbonPanel = application.CreateRibbonPanel(nomeAba, nomePainel);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
-            }
-
-            try
-            {
-                ribbonPanel = aplicativo.CreateRibbonPanel(tab, "Tabelas");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-
-            return ribbonPanel;
-        }
-
-        public RibbonPanel CreateRibbonPanelDetalhamento(UIControlledApplication aplicativo)
-        {
-            string tab = "Projeta HDR";
-            RibbonPanel ribbonPanel = null;
-
-            try
-            {
-                aplicativo.CreateRibbonTab(tab);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-
-            try
-            {
-                ribbonPanel = aplicativo.CreateRibbonPanel(tab, "Detalhamento");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
+                Debug.WriteLine($"Erro ao criar o painel '{nomePainel}': {ex.Message}");
             }
 
             return ribbonPanel;

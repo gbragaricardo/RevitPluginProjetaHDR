@@ -3,7 +3,7 @@
 	<AddIn Type="Application">
 		<Name> Projeta HDR</Name>
 		<Assembly>ProjetaHDR.dll</Assembly>
-		<AddInId>4EC3C40C-818A-4C50-A048-8FFB3772ED14</AddInId>
+		<AddInId>351B050B-93CA-424C-952E-593438C3DB6F</AddInId>
 		<FullClassName>ProjetaHDR.Application</FullClassName>
 		<VendorId>Rick Garcia Braga</VendorId>
 		<VendorDescription>MEP Plugin for Grupo Projeta</VendorDescription>
